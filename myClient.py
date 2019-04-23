@@ -6,31 +6,28 @@
 # @Explain: This file is for ...
 
 
-
-import  socket
-import  datetime
-
-HOST = input("IP:")
-PORT = eval(input("PORT:"))
-
-s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.connect((HOST,PORT))
-
-while True:
-    user_input=input("msg:").strip()
-    s.send(user_input.encode())
-    data=s.recv(1024)
-    cur_time=datetime.datetime.now().strftime("%X")
-    if data=="quit":
-        break
-    print("[%s]recv:"%cur_time,data)
-
-s.close()
+import socket
+import datetime
 
 
+def client():
+    HOST = input("IP:")
+    PORT = eval(input("PORT:"))
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect((HOST, PORT))
+
+    while True:
+        user_input = input("msg:").strip()
+        s.send(user_input.encode())
+        data = s.recv(1024)
+        cur_time = datetime.datetime.now().strftime("%X")
+        if data == "quit":
+            break
+        print("[%s]recv:" % cur_time, data)
+
+    s.close()
 
 
-
-
-
-
+if __name__ == '__main__':
+    client()
